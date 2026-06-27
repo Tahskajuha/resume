@@ -9,6 +9,6 @@ technologies:
   - AOSP
 
 bullets:
-  - Reverse engineered proprietary OneUI audio policy binaries using Ghidra and AOSP source analysis to enable remote_submix capture on Samsung devices.
+  - Reverse engineered proprietary OneUI audio policy binaries using Ghidra and AOSP source analysis to enable remote-submix capture on Samsung devices.
   - Investigated Android audio routing architecture, policy configuration, and audio service interactions to restore access to post-processed system audio streams.
   - Developed deployment procedures, validation workflows, and technical documentation for modified audio policy configurations.

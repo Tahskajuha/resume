@@ -10,6 +10,6 @@ technologies:
   - OPUS
 
 bullets:
-  - Developed an Android audio capture client that acquires stereo 48 kHz PCM audio from REMOTE_SUBMIX and streams it to remote receivers using RTP over UDP.
+  - Developed an Android audio capture client that acquires stereo 48 kHz PCM audio from REMOTE-SUBMIX and streams it to remote receivers using RTP over UDP.
   - Implemented OPUS encoding, RTP packetization, timestamp management, and sequence tracking for low-latency real-time audio delivery.
   - Built a lightweight Android interface featuring persistent target configuration and service-state synchronization to simplify deployment and day-to-day operation.
