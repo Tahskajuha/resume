@@ -1,0 +1,22 @@
+title: cryptScribe
+link: https://github.com/Tahskajuha/cryptScribe
+start: Jul 2025
+end: Mar 2026
+
+technologies:
+  - JavaScript
+  - React
+  - PostgreSQL
+  - Vite
+  - Node
+  - Express
+  - Libsodium
+  - TipTap/ProseMirror
+  - Docker/Docker Compose
+
+bullets:
+  - Developed a privacy-focused journaling platform featuring client-side encryption, rich real-time document editing, and support for web, Electron, and CLI interfaces.
+  - Designed relational database schemas and backend APIs to support secure document storage and retrieval workflows.
+  - Implemented security-focused architecture including challenge-response authentication, key separation, Tor deployment support, and a zero-plaintext backend design.
+  - Designed custom UI animation flows to mask latency introduced by Tor networking and cryptographic operations, improving perceived responsiveness.
+  - Containerized backend services and automated deployment using Docker Compose.

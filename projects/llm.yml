@@ -1,0 +1,13 @@
+title: RAG & LLM Systems Experiments
+start: Aug 2024
+end: Sep 2024
+
+technologies:
+  - Python
+  - Ollama
+  - LoRA
+  - Vector Databases
+
+bullets:
+  - Investigated LoRA fine-tuning workflows and retrieval-augmented generation architectures using local LLM runtimes and vector databases.
+  - Designed and evaluated modular context-routing strategies using vector embeddings and domain-specific retrieval pipelines.

@@ -1,0 +1,19 @@
+title: OpusRX
+link: https://github.com/Tahskajuha/libopusrx
+start: Feb 2026
+end: Present
+
+technologies:
+  - C
+  - JNI
+  - ALSA
+  - RTP
+  - OPUS
+  - Meson
+  - Gradle
+  - Make
+
+bullets:
+  - Built and maintained a cross-platform RTP audio receiver library featuring configurable latency control, jitter buffering, and real-time audio playback.
+  - Designed thread-safe queue-based packet ingestion and pull-based playback API for real-time audio playback.
+  - Implemented queue-depth-based latency regulation, Opus PLC/FEC support, JNI bindings, and platform integration tooling for Linux and Android deployments.

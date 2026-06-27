@@ -1,0 +1,16 @@
+title: Deloitte Capstone Project
+link: https://drive.google.com/file/d/1JDtuFfUF50ky3-w7FxMi3r-xKots-Sng/
+start: Oct 2025
+end: Jan 2026
+
+technologies:
+  - JavaScript
+  - PostgreSQL
+  - PGVector
+  - Docker
+  - Docker Compose
+
+bullets:
+  - Worked in a team of 6 to design, develop and deploy a Known Error Database (KEDB).
+  - Designed database schema and co-authored vector embedding logic.
+  - Co-authored deployment logic using Docker and Docker Compose.

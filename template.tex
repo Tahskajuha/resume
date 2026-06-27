@@ -1,0 +1,360 @@
+\begin{filecontents*}[overwrite]{template.cls}
+
+%%%%%%%%%
+% CLASS %
+%%%%%%%%%
+\ProvidesClass{template}[2015/02/28 CV class]
+\LoadClass{article}
+\NeedsTeXFormat{LaTeX2e}
+
+%%%%%%%%%%%%
+% PACKAGES %
+%%%%%%%%%%%%
+\RequirePackage[sfdefault]{ClearSans}
+\RequirePackage{multicol}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{ragged2e}
+\RequirePackage{etoolbox}
+\RequirePackage{ifmtarg}
+\RequirePackage{ifthen}
+\RequirePackage{pgffor}
+\RequirePackage{marvosym}
+\RequirePackage{parskip}
+\RequirePackage{pdfescape}
+\RequirePackage[left=7.3cm,top=0.1cm,right=0.5cm,bottom=0.2cm,nohead,nofoot]{geometry}
+\RequirePackage[
+	pdfborder={0 0 0}
+]{hyperref}
+
+%%%%%%%%%%%
+% OPTIONS %
+%%%%%%%%%%%
+% icons
+\newbool{icon}
+\DeclareOption{icon}{%
+  \booltrue{icon}
+}
+\DeclareOption{print}{\def\@cv@print{}}
+\DeclareOption*{
+  \PassOptionsToClass{\CurrentOption}{article}
+}
+\ProcessOptions\relax
+\ifbool{icon}{\RequirePackage{fontawesome}}{}
+
+\usetikzlibrary{calc}
+
+\pagestyle{empty}
+
+\newlength{\timelinelabelwidth}
+\setlength{\timelinelabelwidth}{0.16\textwidth}
+
+\pdfobjcompresslevel=0
+
+%%%%%%%%%%
+% colors %
+%%%%%%%%%%
+\definecolor{white}{RGB}{255,255,255} 
+\definecolor{darkgray}{HTML}{333333} 
+\definecolor{gray}{HTML}{4D4D4D}
+\definecolor{sidecolor}{HTML}{E7E7E7}
+\definecolor{lightgray}{HTML}{999999}
+\definecolor{green}{HTML}{C2E15F}
+\definecolor{orange}{HTML}{FDA333}
+\definecolor{purple}{HTML}{D3A4F9}
+\definecolor{red}{HTML}{FB0B00}
+\definecolor{blue}{HTML}{6CE0F1}
+\definecolor{mainblue}{HTML}{0E5484}
+\definecolor{cerulean}{HTML}{007BA7}
+\definecolor{maingray}{HTML}{B9B9B9}
+\definecolor{maindarkgray}{HTML}{B3B3B3}
+
+\ifdefined\@cv@print
+  \colorlet{green}{gray}
+  \colorlet{orange}{gray}
+  \colorlet{purple}{gray}
+  \colorlet{red}{gray}
+  \colorlet{blue}{gray}
+  \colorlet{fillheader}{white}
+  \colorlet{asidecolor}{sidecolor}
+  \colorlet{header}{gray}
+\else
+  \colorlet{fillheader}{gray}
+  \colorlet{header}{white}
+  \colorlet{asidecolor}{sidecolor}
+\fi
+
+\colorlet{textcolor}{gray}
+\colorlet{headercolor}{gray}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% Profile Picture %%%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\imgWidth{%<dynamic content here>%}
+\def\imgHeight{%<dynamic content here>%}
+\def\imgLength{%<dynamic content here>%}
+
+% 5 cm expressed in PDF big points (bp)
+\def\FormScale{141.75}
+
+%Encode the image to hex so that it can be inserted
+\edef\ImageBinary{\pdfunescapehex{%
+%<dynamic content here>%}}
+
+% Create manually an image XObject of the JPEG image.
+\endlinechar=10 %
+\immediate\pdfobj{<<
+/Type /XObject /Subtype /Image
+/Width \imgWidth 
+/Height \imgHeight 
+/BitsPerComponent 8 /ColorSpace /DeviceRGB
+/Length \imgLength 
+/Filter /DCTDecode
+>>
+stream
+\ImageBinary
+endstream}%
+\endlinechar=13 %
+\edef\ImageObj{\number\pdflastobj}
+
+% Put the object in a box so that it pdfrefximage primitive can be used
+\newbox\ImageBox
+\setbox\ImageBox\hbox{
+	\pdfliteral page {
+		q
+		\FormScale\space 0 0 \FormScale\space 0 0 cm
+		/myIm1 Do
+		Q
+	}
+}
+\wd\ImageBox=\FormScale bp \ht\ImageBox=\FormScale bp
+
+\pdfxform resources {%
+  /XObject << /myIm1 \ImageObj\space 0 R >>
+}\ImageBox
+\edef\FormObj{\number\pdflastxform}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Profile left SideBar %
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+
+\newcommand{\sidebarsection}[2]{%
+	{%
+		\noindent\color{black!80} \huge #1 \rule[0.15\baselineskip]{#2}{1pt} \vspace{1pt}%
+	}%
+}
+
+\newcommand{\definecvfield}[2]{%
+	\expandafter\def\csname cv@#1\endcsname{#2}%
+	\expandafter\newcommand\csname cv#1\endcsname[1]{%
+		\expandafter\def\csname cv@#1\endcsname{##1}%
+	}%
+}
+
+\newcommand{\cvskills}[1]{%
+	\def\cv@skills{%
+		\begin{multicols}{2}
+			\foreach \x in {#1}{%
+				$\bullet$~\x\par
+			}
+		\end{multicols}
+	}%
+}
+
+\definecvfield{name}{REQUIRED!}
+\definecvfield{mail}{}
+\definecvfield{numberphone}{}
+\definecvfield{address}{}
+\definecvfield{site}{}
+\definecvfield{aboutme}{}
+\definecvfield{date}{}
+\definecvfield{jobtitle}{}
+
+% icon in blue circle; #1 -> icon
+\newcommand*\icon[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt, fill=mainblue,mainblue,text=white] (char) {#1};}
+}
+
+% Text in square node with rounded corners; #1 -> text, #2 -> color
+\newcommand*\round[2]{%
+\tikz[baseline=(char.base)]\node[anchor=north west, draw,rectangle,
+  rounded corners, inner sep=1.6pt, minimum size=5.5mm, text height=3.6mm,
+  fill=#2,#2,text=white](char){#1};%
+}
+
+\newcommand{\rendercvfield}[2]{%
+	\ifthenelse{\equal{#1}{}}{}{#2}
+}
+
+\newcommand{\makeprofile}{%
+	% grey bar on the left side
+	\begin{tikzpicture}[remember picture,overlay]
+		\node [rectangle, fill=asidecolor, anchor=north, minimum width=11cm, minimum height=\paperheight+1cm] (box) at (-5cm,0.5cm){};
+	\end{tikzpicture}
+
+	\begin{textblock}{7}(0.5, 0.2)
+		\begin{flushleft}
+			\hspace{13pt}
+			
+			% profile picture
+			\begin{tikzpicture}
+				\clip (\FormScale bp/2, \FormScale bp/2) circle[radius=\FormScale bp/2];
+				\pdfrefxform\FormObj
+			\end{tikzpicture}%
+			
+			% name
+			{\Huge\color{mainblue}\cv@name}
+
+			% jobtitle
+			\begin{flushright}
+				{\normalsize\color{black!80}\cv@jobtitle}
+			\end{flushright}
+
+			% table with icons 
+			{
+				\renewcommand{\arraystretch}{1.6}
+				\begin{tabular}{c @{\hskip 0.2cm} p{5cm}}
+					\rendercvfield{\cv@date}{\textsc{\Large\icon{\Info}} & \cv@date\\}
+					\rendercvfield{\cv@address}{\textsc{\Large\icon{\Letter}} & \cv@address\\}
+					\rendercvfield{\cv@numberphone}{\textsc{\Large\icon{\Telefon}} & \cv@numberphone\\}
+					\rendercvfield{\cv@site}{\textsc{\Large\icon{\Mundus}} & \href{\cv@site}{\textcolor{cerulean}\cv@site}\\}
+					\rendercvfield{\cv@mail}{\textsc{\large\icon{@}} & \href{mailto:\cv@mail}{\cv@mail}}
+				\end{tabular}
+			}
+
+			\vspace{1em}
+
+			% about me text
+			\sidebarsection{About Me}{4.2cm}\\
+			\cv@aboutme
+
+			\vspace{1em}
+
+			% skills
+			\sidebarsection{Skill}{6cm}\\
+			\cv@skills
+
+		\end{flushleft}
+	\end{textblock}
+}
+
+%%%%%%%%%%%%%%%%%%%%%
+% Section Color box %
+%%%%%%%%%%%%%%%%%%%%%
+\newcounter{colorCounter}
+\newcommand{\cvsectionlabel}[1]{
+	{%
+		% Switch between blue and gray
+		\round{#1}{%
+			\ifodd\value{colorCounter}%
+				mainblue%
+			\else%
+				maingray%
+			\fi%
+		}%
+	}%
+	\stepcounter{colorCounter}%
+}
+
+\newcommand{\cvsection}[2]{
+	\par%
+	\hspace{0.5cm}
+	{%
+		\LARGE
+		\color{headercolor}%
+		\cvsectionlabel{#1}#2%
+	}
+	\par\vspace{\parskip}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Timeline %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{timeline}{%
+	\par
+	\setlength{\parindent}{0pt}
+}{%
+	\par
+}
+
+\newcommand{\timelineitem}[5]{%
+	\par\medskip
+	\noindent
+	\begin{minipage}[t]{\timelinelabelwidth}
+		\raggedleft
+		\footnotesize
+		\rendercvfield{#1}{\hspace{3pt}\faicon{#1}\hspace{2pt}}%
+		#2
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{\dimexpr\textwidth-\timelinelabelwidth-1em\relax}
+		{\color{headercolor}\bfseries #3}\par
+		{\small\itshape #4}\par\vspace{0.3em}
+		#5
+	\end{minipage}
+	\par\medskip
+}
+
+\end{filecontents*}
+
+\documentclass[icon]{template}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% PROFILE SIDE BAR %%
+%%%%%%%%%%%%%%%%%%%%%%
+% personal info
+\cvname{Akshat Ahuja}                   % your name
+\cvjobtitle{\textbf{Computer Science Student} \\
+Software Engineering • Systems Programming • Security}
+\cvaddress{Jaipur, Rajasthan, India}       % address
+\cvnumberphone{+91 8717906964}   % telephone number
+\cvmail{akshat.ahuja.work@gmail.com}    % e-mail
+\cvsite{https://github.com/Tahskajuha} % personal site
+
+\cvaboutme{
+Computer Science student focused on solving complex engineering problems through systems programming, software architecture, networking, security, and full-stack development. Experienced in building software across the stack, from platform integration to user-facing applications.
+} % about me section
+
+\cvskills{%
+	%<dynamic content here>%
+}
+
+\makeprofile
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% END PROFILE SIDE BAR %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+%%%%%% BODY %%%%%%
+%%%%%%%%%%%%%%%%%%
+\cvsection{edu}{cation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% TIMELINE ITEMS %%%%%%%%%%%%%%%%%%%%%%
+% Five arguments: icon; date; title; where; description %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{timeline}
+  \timelineitem
+    {graduation-cap}
+    {Expected May 2027}
+    {B.Tech {\normalfont in Computer Science and Engineering}}
+    {Manipal University Jaipur}
+    {}
+\end{timeline}
+
+\cvsection{Pro}{jects}
+\begin{timeline}
+	%<dynamic content here>%
+\end{timeline}
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%% ENDBODY %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

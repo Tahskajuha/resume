@@ -1,0 +1,81 @@
+frontend:
+  - JavaScript
+  - React
+  - Vite
+  - Electron
+  - TipTap/ProseMirror
+
+backend:
+  - REST APIs
+  - Node.js
+  - Express
+  - Redis
+  - Docker
+  - Docker Compose
+  - SSH
+  - Git
+
+database:
+  - PostgreSQL
+  - SQL
+  - PGModeler
+  - PGVector
+
+linux:
+  - C
+  - C++
+  - Linux
+  - Wayland
+  - Meson
+  - Make
+  - Docker
+  - Docker Compose
+  - Git
+  - SSH
+  - virt-manager
+
+android:
+  - Android
+  - Kotlin
+  - JNI
+  - Gradle
+  - AOSP
+  - Magisk
+
+networking:
+  - Networking
+  - RTP
+  - UDP
+  - OPUS
+  - Real-Time Systems
+
+reverse_engineering:
+  - Ghidra
+  - Android
+  - Linux
+
+machine_learning:
+  - Python
+  - TensorFlow
+  - PyTorch
+  - Ollama
+  - LoRA
+  - Vector Databases
+  - PGVector
+
+embedded:
+  - C
+  - C++
+  - Arduino
+  - LTSpice
+  - Embedded Systems
+  - Circuit Design
+
+visualization:
+  - Blender
+  - 3D Modelling
+  - Animation
+
+security:
+  - Libsodium
+  - Ghidra

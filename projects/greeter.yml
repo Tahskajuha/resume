@@ -1,0 +1,15 @@
+title: gtkgreet-builder
+link: https://github.com/Tahskajuha/gtkgreet-builder
+start: Jan 2026
+end: Present
+
+technologies:
+  - C
+  - GTK4
+  - Wayland
+  - Meson
+
+bullets:
+  - Forked, migrated, and maintained a greetd-based Linux login greeter from GTK3 to GTK4, providing installation tooling and deployment documentation for end users.
+  - Implemented declarative GtkBuilder-driven UI layouts and GTK CSS styling to enable configurable greeter interfaces.
+  - Implemented a role-based widget behavior mapping system enabling customizable authentication workflows.

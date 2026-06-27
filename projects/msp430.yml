@@ -1,0 +1,15 @@
+title: MSP430 Microcontroller Architecture Visualization
+link: https://youtu.be/6CDUmoek1Wg
+start: Aug 2024
+end: Nov 2024
+
+technologies:
+  - Blender
+  - 3D Modeling
+  - Animation
+  - Embedded Systems
+
+bullets:
+  - Designed and produced an educational animation exploring MSP430 microcontroller architecture, packaging, and internal organization.
+  - Hand-modeled the microcontroller from package enclosure to abstracted silicon die representations using Blender.
+  - Created educational visualizations of memory regions, core components, bonding structures, and interconnect concepts to illustrate microcontroller operation.

@@ -1,0 +1,13 @@
+title: Generative Adversarial Networks Research
+start: Aug 2024
+end: Oct 2025
+
+technologies:
+  - Python
+  - TensorFlow
+  - PyTorch
+
+bullets:
+  - Investigated and partially ported the DeLiGAN architecture from Tensorflow 1.x to Tensorflow 2.x for compatibility with modern runtimes.
+  - Trained and evaluated StyleGAN2 and DCGAN models on the CIFAR-10 dataset, comparing performance across architectures.
+  - Investigated training instability, mode collapse, and convergence behavior across multiple GAN architectures and framework configurations.

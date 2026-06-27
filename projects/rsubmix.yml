@@ -1,0 +1,14 @@
+title: Android Audio Policy Reverse Engineering
+link: https://github.com/Tahskajuha/sm-x216b-audio-reroute
+start: Aug 2024
+end: Mar 2026
+
+technologies:
+  - Ghidra
+  - Android
+  - AOSP
+
+bullets:
+  - Reverse engineered proprietary OneUI audio policy binaries using Ghidra and AOSP source analysis to enable remote_submix capture on Samsung devices.
+  - Investigated Android audio routing architecture, policy configuration, and audio service interactions to restore access to post-processed system audio streams.
+  - Developed deployment procedures, validation workflows, and technical documentation for modified audio policy configurations.

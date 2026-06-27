@@ -1,0 +1,17 @@
+title: Linux Graphics Stack & Gamescope Kiosk Environment
+link: https://github.com/Tahskajuha/gamescope-tty-notes
+start: Jan 2026
+end: Feb 2026
+
+technologies:
+  - Linux
+  - Gamescope
+  - DRM/KMS
+  - Wayland
+  - NVIDIA PRIME
+  - Meson
+
+bullets:
+  - Designed and maintained a TTY-first gaming kiosk environment using Gamescope, greetd, and Pegasus Frontend on Arch Linux.
+  - Investigated and mitigated compositor freezes on hybrid GPU systems by analyzing PRIME render offloading behavior, DRM handoff timing, and TTY initialization interactions.
+  - Analyzed Gamescope DRM backend internals, connector selection logic, and upstream patches through source-level debugging, custom Meson builds, and Linux graphics stack experimentation.

@@ -1,0 +1,14 @@
+title: Inventory Management System
+link: https://github.com/NamTheGreat/IMS
+start: Jan 2026
+end: Apr 2026
+
+technologies:
+  - JavaScript
+  - PostgreSQL
+  - Express
+  - React
+
+bullets:
+  - Collaborated in a team of 5 to develop a database-driven inventory management system using Scrum-based development practices.
+  - Designed relational database schemas, backend API layers, and frontend interfaces for inventory and operational data management.
