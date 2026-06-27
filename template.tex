@@ -93,16 +93,16 @@
 %%% Profile Picture %%%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\def\imgWidth{%<dynamic content here>%}
-\def\imgHeight{%<dynamic content here>%}
-\def\imgLength{%<dynamic content here>%}
+\def\imgWidth{%<image width>%}
+\def\imgHeight{%<image height>%}
+\def\imgLength{%<image byte length>%}
 
 % 5 cm expressed in PDF big points (bp)
 \def\FormScale{141.75}
 
 %Encode the image to hex so that it can be inserted
 \edef\ImageBinary{\pdfunescapehex{%
-%<dynamic content here>%}}
+%<image bytes hex encoded>%}}
 
 % Create manually an image XObject of the JPEG image.
 \endlinechar=10 %
@@ -283,9 +283,18 @@ endstream}%
 	\par
 }
 
-\newcommand{\timelineitem}[5]{%
+\newcommand{\renderbullets}[1]{%
+	\begin{itemize}
+			#1
+	\end{itemize}
+}
+
+\newcommand{\rendertitle}[1]{{\color{headercolor}\bfseries #1}}
+
+\newcommand{\timelineitem}[6]{%
 	\par\medskip
 	\noindent
+	\hfill
 	\begin{minipage}[t]{\timelinelabelwidth}
 		\raggedleft
 		\footnotesize
@@ -294,9 +303,9 @@ endstream}%
 	\end{minipage}%
 	\hfill
 	\begin{minipage}[t]{\dimexpr\textwidth-\timelinelabelwidth-1em\relax}
-		{\color{headercolor}\bfseries #3}\par
+		\ifthenelse{\equal{#6}{}}{\rendertitle{#3}}{\href{#6}{\underline{\rendertitle{#3}}}}\par
 		{\small\itshape #4}\par\vspace{0.3em}
-		#5
+		\ifstrempty{#5}{}{\renderbullets{#5}}
 	\end{minipage}
 	\par\medskip
 }
@@ -322,9 +331,7 @@ Software Engineering • Systems Programming • Security}
 Computer Science student focused on solving complex engineering problems through systems programming, software architecture, networking, security, and full-stack development. Experienced in building software across the stack, from platform integration to user-facing applications.
 } % about me section
 
-\cvskills{%
-	%<dynamic content here>%
-}
+\cvskills{%<skills list>%}
 
 \makeprofile
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -341,17 +348,11 @@ Computer Science student focused on solving complex engineering problems through
 % Five arguments: icon; date; title; where; description %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{timeline}
-  \timelineitem
-    {graduation-cap}
-    {Expected May 2027}
-    {B.Tech {\normalfont in Computer Science and Engineering}}
-    {Manipal University Jaipur}
-    {}
+	\timelineitem{graduation-cap}{Expected May 2027}{B.Tech {\normalfont in Computer Science and Engineering}}{Manipal University Jaipur}{}{}
 \end{timeline}
 
 \cvsection{Pro}{jects}
-\begin{timeline}
-	%<dynamic content here>%
+\begin{timeline}%<projects stuff>%
 \end{timeline}
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%% ENDBODY %%%%%%%%
