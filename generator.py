@@ -72,10 +72,14 @@ for skill in args.extraskills or []:
         skills.append(skill)
 
 
-projectsout = ""
-for project in projects:
-    projectsout += "\n" + render_project(project)
-skillsout = ",".join(skills)
+mainprojectsout = ""
+extraprojectsout = ""
+for i, project in enumerate(projects):
+    if i < 4:
+        mainprojectsout += "\n" + render_project(project)
+    else:
+        extraprojectsout += "\n" + render_project(project)
+skillsout = ",".join(skills[:42])
 
 
 with open("template.tex", "r", encoding="utf-8") as f:
@@ -85,7 +89,8 @@ tex = tex.replace("%<image height>%", str(image["height"]))
 tex = tex.replace("%<image byte length>%", str(image["length"]))
 tex = tex.replace("%<image bytes hex encoded>%", image["hex"])
 tex = tex.replace("%<skills list>%", skillsout)
-tex = tex.replace("%<projects stuff>%", projectsout)
+tex = tex.replace("%<projects stuff>%", mainprojectsout)
+tex = tex.replace("%<extra projects stuff>%", extraprojectsout)
 
 with open("build/resume.tex", "w", encoding="utf-8") as f:
     f.write(tex)

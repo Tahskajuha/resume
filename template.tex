@@ -1,8 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% BEGIN CLASS %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{filecontents*}[overwrite]{template.cls}
 
-%%%%%%%%%
-% CLASS %
-%%%%%%%%%
 \ProvidesClass{template}[2015/02/28 CV class]
 \LoadClass{article}
 \NeedsTeXFormat{LaTeX2e}
@@ -92,7 +93,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% Profile Picture %%%
 %%%%%%%%%%%%%%%%%%%%%%%
-
 \def\imgWidth{%<image width>%}
 \def\imgHeight{%<image height>%}
 \def\imgLength{%<image byte length>%}
@@ -100,7 +100,7 @@
 % 5 cm expressed in PDF big points (bp)
 \def\FormScale{141.75}
 
-%Encode the image to hex so that it can be inserted
+% Encode the image to hex so that it can be inserted
 \edef\ImageBinary{\pdfunescapehex{%
 %<image bytes hex encoded>%}}
 
@@ -160,7 +160,7 @@ endstream}%
 	\def\cv@skills{%
 		\begin{multicols}{2}
 			\foreach \x in {#1}{%
-				$\bullet$~\x\par
+				$\bullet$~\x\\
 			}
 		\end{multicols}
 	}%
@@ -275,12 +275,25 @@ endstream}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Timeline %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \newenvironment{timeline}{%
 	\par
 	\setlength{\parindent}{0pt}
 }{%
 	\par
+}
+
+\newenvironment{extendedtimeline}{%
+	\newgeometry{
+		left=0.5cm,
+		right=0.5cm,
+		top=0.1cm,
+		bottom=0.2cm
+	}
+	\begin{multicols}{2}
+		\setlength{\parindent}{0pt}
+}{%
+	\end{multicols}
+	\restoregeometry
 }
 
 \newcommand{\renderbullets}[1]{%
@@ -302,7 +315,7 @@ endstream}%
 		#2
 	\end{minipage}%
 	\hfill
-	\begin{minipage}[t]{\dimexpr\textwidth-\timelinelabelwidth-1em\relax}
+	\begin{minipage}[t]{\dimexpr\linewidth-\timelinelabelwidth-1em\relax}
 		\ifthenelse{\equal{#6}{}}{\rendertitle{#3}}{\href{#6}{\underline{\rendertitle{#3}}}}\par
 		{\small\itshape #4}\par\vspace{0.3em}
 		\ifstrempty{#5}{}{\renderbullets{#5}}
@@ -311,6 +324,10 @@ endstream}%
 }
 
 \end{filecontents*}
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%%% END CLASS %%%%%
+%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[icon]{template}
 \begin{document}
@@ -354,6 +371,9 @@ Computer Science student focused on solving complex engineering problems through
 \cvsection{Pro}{jects}
 \begin{timeline}%<projects stuff>%
 \end{timeline}
+\begin{extendedtimeline}%<extra projects stuff>%
+\end{extendedtimeline}
+
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%% ENDBODY %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
