@@ -1,0 +1,15 @@
+title: Resume Generation Pipeline
+link: https://github.com/Tahskajuha/resume
+start: Jun 2026
+end: Jun 2026
+
+technologies:
+  - Python
+  - LaTeX
+  - YAML
+  - Make
+
+bullets:
+  - Designed and implemented a data-driven résumé generation pipeline using Python, YAML, LaTeX, and Make, enabling generation of tailored résumés from structured project and skill definitions.
+  - Built a configurable code generation system supporting project selection, skillset composition, automatic skill deduplication, and self-contained PDF generation with embedded assets.
+  - Developed a reusable LaTeX résumé class featuring customizable timelines, profile layouts, and extensible components to support multiple résumé variants from a single source of truth.
