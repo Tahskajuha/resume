@@ -8,6 +8,12 @@ builder:
 	cp build/resume.pdf .
 	deactivate
 
-master: ARGS=-P capstone cryptscribe gamescope gan greeter ims llm msp430 opusrx rstreamer rsubmix resume \
-             -S frontend backend database linux android networking reverse_engineering machine_learning embedded visualization security
-master: builder
+master-ats: ARGS=-P capstone cryptscribe gamescope gan greeter ims llm msp430 opusrx rstreamer rsubmix resume \
+             -S frontend backend database linux android networking reverse_engineering machine_learning embedded visualization security \
+	     -T ats
+master-ats: builder
+
+master-regular: ARGS=-P capstone cryptscribe gamescope gan greeter ims llm msp430 opusrx rstreamer rsubmix resume \
+             -S frontend backend database linux android networking reverse_engineering machine_learning embedded visualization security \
+	     -T regular
+master-regular: builder

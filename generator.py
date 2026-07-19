@@ -17,6 +17,9 @@ parser.add_argument(
     nargs="+",
     help="List of skills to be appended to the skillset in this instance",
 )
+parser.add_argument(
+    "-T", "--template", required=True, help="Template to use for the resume"
+)
 args = parser.parse_args()
 
 
@@ -41,7 +44,9 @@ def read_yaml(path: Path):
 
 def render_project(project):
     techout = " • ".join(project["technologies"])
-    bulletout = "\n".join(f"\\item {bullet}" for bullet in project.get("bullets", []))
+    bulletout = "\n".join(
+        rf"\customItem{{{bullet}}}" for bullet in project.get("bullets", [])
+    )
     return (
         rf"\timelineitem"
         rf"{{}}"
@@ -79,10 +84,11 @@ for i, project in enumerate(projects):
         mainprojectsout += "\n" + render_project(project)
     else:
         extraprojectsout += "\n" + render_project(project)
+
 skillsout = ",".join(skills[:42])
 
-
-with open("template.tex", "r", encoding="utf-8") as f:
+template = "templates/" + args.template + ".tex"
+with open(template, "r", encoding="utf-8") as f:
     tex = f.read()
 tex = tex.replace("%<image width>%", str(image["width"]))
 tex = tex.replace("%<image height>%", str(image["height"]))
